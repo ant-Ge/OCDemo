@@ -13,6 +13,7 @@
 		EBBF756D22708F7200144733 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBBF756C22708F7200144733 /* Assets.xcassets */; };
 		EBBF757022708F7200144733 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBBF756E22708F7200144733 /* LaunchScreen.storyboard */; };
 		EBBF757322708F7200144733 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBF757222708F7200144733 /* main.m */; };
+		EBBF757C227090E900144733 /* CZoomView.m in Sources */ = {isa = PBXBuildFile; fileRef = EBBF757B227090E900144733 /* CZoomView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		EBBF756F22708F7200144733 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBBF757122708F7200144733 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBBF757222708F7200144733 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EBBF757A227090E900144733 /* CZoomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CZoomView.h; sourceTree = "<group>"; };
+		EBBF757B227090E900144733 /* CZoomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CZoomView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 				EBBF756422708F7000144733 /* AppDelegate.m */,
 				EBBF756622708F7000144733 /* ViewController.h */,
 				EBBF756722708F7000144733 /* ViewController.m */,
+				EBBF75792270900300144733 /* ImageZoom */,
 				EBBF756922708F7000144733 /* Main.storyboard */,
 				EBBF756C22708F7200144733 /* Assets.xcassets */,
 				EBBF756E22708F7200144733 /* LaunchScreen.storyboard */,
@@ -69,6 +73,15 @@
 				EBBF757222708F7200144733 /* main.m */,
 			);
 			path = OCDemo;
+			sourceTree = "<group>";
+		};
+		EBBF75792270900300144733 /* ImageZoom */ = {
+			isa = PBXGroup;
+			children = (
+				EBBF757A227090E900144733 /* CZoomView.h */,
+				EBBF757B227090E900144733 /* CZoomView.m */,
+			);
+			path = ImageZoom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBBF756822708F7000144733 /* ViewController.m in Sources */,
+				EBBF757C227090E900144733 /* CZoomView.m in Sources */,
 				EBBF757322708F7200144733 /* main.m in Sources */,
 				EBBF756522708F7000144733 /* AppDelegate.m in Sources */,
 			);
@@ -286,6 +300,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T79EP289BP;
 				INFOPLIST_FILE = OCDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,6 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T79EP289BP;
 				INFOPLIST_FILE = OCDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

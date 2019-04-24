@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CZoomView.h"
 
 @interface ViewController ()
 
@@ -17,7 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self testZoomView];
 }
-
+- (void)testZoomView {
+ 
+    CGRect rect = [UIScreen mainScreen].bounds;
+    CZoomView *zoomView = [[CZoomView alloc] initWithFrame:rect];
+    [zoomView setImageName:@"meinv2"];
+    [self.view addSubview:zoomView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+ }
 
 @end
