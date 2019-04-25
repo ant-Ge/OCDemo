@@ -16,4 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface CZoomView (Gesture)
+
+- (void)addGesture;
+
+@end
+
 NS_ASSUME_NONNULL_END

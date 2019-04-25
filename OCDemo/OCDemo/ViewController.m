@@ -24,9 +24,8 @@
  
     CGRect rect = [UIScreen mainScreen].bounds;
     CZoomView *zoomView = [[CZoomView alloc] initWithFrame:rect];
-    [zoomView setImageName:@"meinv2"];
+    [zoomView setImageName:@"meinv"];
     [self.view addSubview:zoomView];
-    self.automaticallyAdjustsScrollViewInsets = NO;
  }
 
 @end
