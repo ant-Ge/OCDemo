@@ -7,6 +7,7 @@
 //
 
 #import "CZoomView.h"
+#import <AVKit/AVKit.h>
 
 @interface CZoomView () <UIScrollViewDelegate>
 
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) UIImageView *zoomView;
 
 @property (nonatomic, assign) CGPoint largePoint; //发达手势的位置
+
+@property (nonatomic, assign) UIEdgeInsets insets;
 
 @end
 
@@ -32,20 +35,20 @@
 - (void)setImageName:(NSString *)imageName {
     UIImage *aImage = [UIImage imageNamed:imageName];
     NSAssert(!CGSizeEqualToSize(CGSizeZero, aImage.size), @"image name not found is nil");
-    
     if (_zoomView) {
         [_zoomView removeFromSuperview];
     }
+    CGRect restRect =  AVMakeRectWithAspectRatioInsideRect(aImage.size, self.bounds);//居中显示的frame
     _zoomView = [[UIImageView alloc] initWithImage:aImage];
-    _zoomView.frame = CGRectMake(0, 0, aImage.size.width, aImage.size.height);
+    _zoomView.frame = (CGRect){0,0,restRect.size};
     _scrollView.contentSize = aImage.size;
     [_scrollView addSubview:_zoomView];
-    CGFloat maxSale = [self getMaxSale];
-    CGFloat minSale = [self getMinSale];
-    _scrollView.maximumZoomScale = maxSale;
-    _scrollView.minimumZoomScale = minSale;
-    _scrollView.zoomScale = minSale;
-    _zoomView.center = _scrollView.center;
+    _scrollView.zoomScale = 1;
+    _scrollView.minimumZoomScale = 1;
+    _scrollView.maximumZoomScale = 2;
+    [_scrollView setBounces:NO];
+    _insets = UIEdgeInsetsMake(restRect.origin.y, restRect.origin.x, restRect.origin.y, restRect.origin.x);
+    _scrollView.contentInset = _insets;
 }
 - (CGFloat)getMaxSale {
     
@@ -69,30 +72,19 @@
 //缩放手势触发的时候才会调用
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     
-    UIView *subView = [scrollView.subviews objectAtIndex:0];
-    CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
-    CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
-    subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,scrollView.contentSize.height * 0.5 + offsetY);
 }
 //完成缩放的时候调用
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     
-    //location zoomView in center
-    CGPoint offset = scrollView.contentOffset;
-    UIView *subView = [scrollView.subviews objectAtIndex:0];
-    CGFloat offsetX = MAX((scrollView.bounds.size.width - scrollView.contentSize.width) * 0.5, 0.0);
-    CGFloat offsetY = MAX((scrollView.bounds.size.height - scrollView.contentSize.height) * 0.5, 0.0);
+    CGFloat sale = 2 - scrollView.zoomScale;
+    UIEdgeInsets nInsets =  UIEdgeInsetsMake(_insets.top * sale, _insets.left * sale, _insets.bottom * sale, _insets.right * sale);
+    scrollView.contentInset = nInsets;
     
-    if (CGPointEqualToPoint(_largePoint, CGPointZero)) {
-        subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,scrollView.contentSize.height * 0.5 + offsetY);
-    } else {
-        CGSize size = subView.frame.size;
-        if (_largePoint.x < CGRectGetMidX(self.bounds) && _largePoint.y < CGRectGetMaxY(self.bounds)) {
-            subView.frame = (CGRect){0,0,size};
-        } else if (_largePoint.x < CGRectGetMidX(self.bounds) && _largePoint.y > CGRectGetMaxY(self.bounds)) {
-            subView.frame = (CGRect){0,scrollView.bounds.size.height - scrollView.contentSize.height, size};
-        }
-        _largePoint = CGPointZero;
+}
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    if (scale < 1.3) {
+        _scrollView.contentInset = _insets;
+        [scrollView setZoomScale:1 animated:YES];
     }
 }
 #pragma mark - property
